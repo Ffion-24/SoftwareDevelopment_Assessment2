@@ -3,3 +3,14 @@ def greetUser():
     return welcome
 
 print(greetUser())
+
+rows= 5
+coulums= 5
+for i in range(rows):
+    for j in range(coulums):
+        if i==1 and j==5:
+            print("P", end=" ")
+        else:
+            print(".", end=" ") # this is to print the dots in a line and not in a new line
+    print() # this is to move to the next line after printing the dots in a line
+
