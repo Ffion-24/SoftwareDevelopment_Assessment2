@@ -1,0 +1,5 @@
+def greetUser():
+    welcome= "Welcome to the Python Treasure Hunt" # telling the code that any time greetUser is mentioned the vairible welcome is actioned
+    return welcome
+
+print(greetUser())
