@@ -8,9 +8,15 @@ rows= 5
 coulums= 5
 for i in range(rows):
     for j in range(coulums):
-        if i==1 and j==5:
-            print("P", end=" ")
+        if i==4 and j==0:
+            print("P", end=" ") #This is to print the P in the last row and first column as the starting point of the game.
         else:
             print(".", end=" ") # this is to print the dots in a line and not in a new line
     print() # this is to move to the next line after printing the dots in a line
 
+#Player Movement
+if i==4 and j==0:
+    print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
+    player_move = input("Enter the Direction you want to move: ")
+    if player_move == "w":
+        
