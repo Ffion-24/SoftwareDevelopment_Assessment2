@@ -4,6 +4,8 @@ def greetUser():
 
 print(greetUser())
 
+
+
 rows= 5
 coulums= 5
 for i in range(rows):
@@ -15,8 +17,8 @@ for i in range(rows):
     print() # this is to move to the next line after printing the dots in a line
 
 #Player Movement
-if i==4 and j==0:
-    print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
-    player_move = input("Enter the Direction you want to move: ")
-    if player_move == "w":
-        
+
+print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
+player_position = [4, 0] # Starting position of the player
+player_movement = input("Enter your move: ")
+if player_movement == "w":
