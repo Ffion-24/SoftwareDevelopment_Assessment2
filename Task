@@ -1,3 +1,22 @@
+import random
+
+#Random Loction Treasure
+treasure_row = random.randint(0, 4)
+treasure_column = random.randint(0, 4)
+if treasure_row == 4 and treasure_column == 0:
+    treasure_row = random.randint(0, 4)
+    treasure_column = random.randint(0, 4)
+
+#Random Location Trap
+
+trap_row = random.randint(0, 4)
+trap_column = random.randint(0, 4)
+if trap_row == 4 and trap_column == 0 and trap_row == treasure_row and trap_column == treasure_column:
+    trap_row = random.randint(0, 4)
+    trap_column = random.randint(0, 4)
+
+#Greeting
+
 def greetUser():
     welcome= "Welcome to the Python Treasure Hunt" # telling the code that any time greetUser is mentioned the vairible welcome is actioned
     return welcome
@@ -21,6 +40,12 @@ def display_grid():
 
 print(display_grid())
 
+#Player Health
+player_health = 3
+print("Player Health: ", player_health)
+if player_row == trap_row and player_column == trap_column:
+    player_health -= 1
+    print("Player Health: ", player_health)
 
 #Player Movement
 
