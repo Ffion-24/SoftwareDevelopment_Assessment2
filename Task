@@ -4,21 +4,47 @@ def greetUser():
 
 print(greetUser())
 
+#Player Grid
+player_row = 4
+player_column = 0
 
+def display_grid():
+    rows= 5
+    coulums= 5
+    for i in range(rows):
+        for j in range(coulums):
+            if i == player_row and j== player_column:
+                print("P", end=" ") #This is to print the P in the last row and first column as the starting point of the game.
+            else:
+                print(".", end=" ") # this is to print the dots in a line and not in a new line
+        print() # this is to move to the next line after printing the dots in a line
 
-rows= 5
-coulums= 5
-for i in range(rows):
-    for j in range(coulums):
-        if i==4 and j==0:
-            print("P", end=" ") #This is to print the P in the last row and first column as the starting point of the game.
-        else:
-            print(".", end=" ") # this is to print the dots in a line and not in a new line
-    print() # this is to move to the next line after printing the dots in a line
+print(display_grid())
+
 
 #Player Movement
 
 print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
-player_position = [4, 0] # Starting position of the player
 player_movement = input("Enter your move: ")
 if player_movement == "w":
+    player_row += -1
+    print(display_grid())
+    if player_row == 0:
+        print("Error: You can't move up.")
+elif player_movement == "s":
+    player_row += 1
+    print(display_grid())
+    if player_row == 4:
+        print("Error: You can't move down.")
+elif player_movement == "a":
+    player_column += -1
+    print(display_grid())
+    if player_column == 0:
+        print("Error: You can't move left.")
+elif player_movement == "d":
+    player_column += 1
+    print(display_grid())
+    if player_column == 4:
+        print("Error: You can't move right.")
+else:
+    print("Error: Invalid move. Please enter w, s, a, or d.")
