@@ -52,29 +52,34 @@ print("You are at the starting point. Move up (w), down(s), left(a) or right(d) 
 while player_hp > 0 and (player_row, player_column) != (treasure_row, treasure_column):
     player_movement = input("Enter your move: ")
     if player_movement == "w":
-        player_row += -1
-        display_grid()
-        print("Player Health: ", player_hp)
         if player_row == 0:
             print("Error: You can't move up.")
+        else:
+            player_row += -1
+            display_grid()
+            print("Player Health: ", player_hp)
     elif player_movement == "s":
-        player_row += 1
-        display_grid()
-        print("Player Health: ", player_hp)
         if player_row == 4:
             print("Error: You can't move down.")
+        else:
+            player_row += 1
+            display_grid()
+            print("Player Health: ", player_hp)
     elif player_movement == "a":
-        player_column += -1
-        display_grid()
-        print("Player Health: ", player_hp)
         if player_column == 0:
             print("Error: You can't move left.")
+        else:
+            player_column += -1
+            display_grid()
+            print("Player Health: ", player_hp)
     elif player_movement == "d":
-        player_column += 1
-        display_grid()
-        print("Player Health: ", player_hp)
         if player_column == 4:
             print("Error: You can't move right.")
+        else:
+            player_column += 1
+            display_grid()
+            print("Player Health: ", player_hp)
+        
     else:
         print("Error: Invalid move. Please enter w, s, a, or d.")
 if (player_row, player_column) == (treasure_row, treasure_column):
