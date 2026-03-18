@@ -41,17 +41,15 @@ def display_grid():
 print(display_grid())
 
 #Player Health
-player_location = (player_row, player_column)
-trap_location = (trap_row, trap_column)
 player_hp = 3
 print("Player Health: ", player_hp)
-if player_location == trap_location:
-    player_hp = player_hp - 1
+if (player_row, player_column) == (trap_row, trap_column):
+    player_hp -= 1
     print("Player Health: ", player_hp)
 
 #Player Movement
 print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
-while player_hp > 0:
+while player_hp > 0 and (player_row, player_column) != (treasure_row, treasure_column):
     player_movement = input("Enter your move: ")
     if player_movement == "w":
         player_row += -1
@@ -79,3 +77,7 @@ while player_hp > 0:
             print("Error: You can't move right.")
     else:
         print("Error: Invalid move. Please enter w, s, a, or d.")
+if (player_row, player_column) == (treasure_row, treasure_column):
+    print("Congratulations! You found the treasure!")
+elif player_hp == 0:
+    print("Game Over! You have lost all of your health.")
