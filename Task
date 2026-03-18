@@ -3,15 +3,15 @@ import random
 #Random Loction Treasure
 treasure_row = random.randint(0, 4)
 treasure_column = random.randint(0, 4)
-if treasure_row == 4 and treasure_column == 0:
+while treasure_row == 4 and treasure_column == 0:
     treasure_row = random.randint(0, 4)
     treasure_column = random.randint(0, 4)
 
 #Random Location Trap
 
-trap_row = random.randint(0, 4)
+trap_row = random.randint(0, 4)  # This generates a random location for the trap...
 trap_column = random.randint(0, 4)
-if trap_row == 4 and trap_column == 0 and trap_row == treasure_row and trap_column == treasure_column:
+while (trap_row == 4 and trap_column == 0) or (trap_row == treasure_row and trap_column == treasure_column): # ...but this stops the player failing instantly.
     trap_row = random.randint(0, 4)
     trap_column = random.randint(0, 4)
 
@@ -38,12 +38,12 @@ def display_grid():
                 print(".", end=" ") # this is to print the dots in a line and not in a new line
         print() # this is to move to the next line after printing the dots in a line
 
-print(display_grid())
+display_grid()
 
 #Player Health
 player_hp = 3
 print("Player Health: ", player_hp)
-if (player_row, player_column) == (trap_row, trap_column):
+while player_hp > 0 and  (player_row, player_column) == (trap_row, trap_column):
     player_hp -= 1
     print("Player Health: ", player_hp)
 
@@ -53,25 +53,25 @@ while player_hp > 0 and (player_row, player_column) != (treasure_row, treasure_c
     player_movement = input("Enter your move: ")
     if player_movement == "w":
         player_row += -1
-        print(display_grid())
+        display_grid()
         print("Player Health: ", player_hp)
         if player_row == 0:
             print("Error: You can't move up.")
     elif player_movement == "s":
         player_row += 1
-        print(display_grid())
+        display_grid()
         print("Player Health: ", player_hp)
         if player_row == 4:
             print("Error: You can't move down.")
     elif player_movement == "a":
         player_column += -1
-        print(display_grid())
+        display_grid()
         print("Player Health: ", player_hp)
         if player_column == 0:
             print("Error: You can't move left.")
     elif player_movement == "d":
         player_column += 1
-        print(display_grid())
+        display_grid()
         print("Player Health: ", player_hp)
         if player_column == 4:
             print("Error: You can't move right.")
