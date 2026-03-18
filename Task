@@ -41,35 +41,41 @@ def display_grid():
 print(display_grid())
 
 #Player Health
-player_health = 3
-print("Player Health: ", player_health)
-if player_row == trap_row and player_column == trap_column:
-    player_health -= 1
-    print("Player Health: ", player_health)
+player_location = (player_row, player_column)
+trap_location = (trap_row, trap_column)
+player_hp = 3
+print("Player Health: ", player_hp)
+if player_location == trap_location:
+    player_hp = player_hp - 1
+    print("Player Health: ", player_hp)
 
 #Player Movement
-
 print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
-player_movement = input("Enter your move: ")
-if player_movement == "w":
-    player_row += -1
-    print(display_grid())
-    if player_row == 0:
-        print("Error: You can't move up.")
-elif player_movement == "s":
-    player_row += 1
-    print(display_grid())
-    if player_row == 4:
-        print("Error: You can't move down.")
-elif player_movement == "a":
-    player_column += -1
-    print(display_grid())
-    if player_column == 0:
-        print("Error: You can't move left.")
-elif player_movement == "d":
-    player_column += 1
-    print(display_grid())
-    if player_column == 4:
-        print("Error: You can't move right.")
-else:
-    print("Error: Invalid move. Please enter w, s, a, or d.")
+while player_hp > 0:
+    player_movement = input("Enter your move: ")
+    if player_movement == "w":
+        player_row += -1
+        print(display_grid())
+        print("Player Health: ", player_hp)
+        if player_row == 0:
+            print("Error: You can't move up.")
+    elif player_movement == "s":
+        player_row += 1
+        print(display_grid())
+        print("Player Health: ", player_hp)
+        if player_row == 4:
+            print("Error: You can't move down.")
+    elif player_movement == "a":
+        player_column += -1
+        print(display_grid())
+        print("Player Health: ", player_hp)
+        if player_column == 0:
+            print("Error: You can't move left.")
+    elif player_movement == "d":
+        player_column += 1
+        print(display_grid())
+        print("Player Health: ", player_hp)
+        if player_column == 4:
+            print("Error: You can't move right.")
+    else:
+        print("Error: Invalid move. Please enter w, s, a, or d.")
