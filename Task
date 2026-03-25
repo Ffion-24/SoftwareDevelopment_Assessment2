@@ -1,87 +1,120 @@
+#Imports
 import random
+from collections import deque
 
-#Random Loction Treasure
+# Random Location Treasure
 treasure_row = random.randint(0, 4)
 treasure_column = random.randint(0, 4)
 while treasure_row == 4 and treasure_column == 0:
     treasure_row = random.randint(0, 4)
     treasure_column = random.randint(0, 4)
 
-#Random Location Trap
-
-trap_row = random.randint(0, 4)  # This generates a random location for the trap...
+# Random Location Trap
+trap_row = random.randint(0, 4)
 trap_column = random.randint(0, 4)
-while (trap_row == 4 and trap_column == 0) or (trap_row == treasure_row and trap_column == treasure_column): # ...but this stops the player failing instantly.
+while (trap_row == 4 and trap_column == 0) or (trap_row == treasure_row and trap_column == treasure_column):
     trap_row = random.randint(0, 4)
     trap_column = random.randint(0, 4)
 
-#Greeting
+#Search System
+def bfs_next_step(start, target, trap_pos=None):
+    if trap_pos is None:
+        trap_pos = set()
+ 
+    queue = deque([(start, [])])
+    visited = {start}
+    directions = [(-1, 0, "up"), (1, 0, "down"), (0, -1, "left"), (0, 1, "right")]
+ 
+    while queue:
+        current, path = queue.popleft()
+# that is a bfs search code
+        if current == target:
+            return path
+ 
+        r, c = current
+        for dr, dc, _ in directions:
+            nr, nc = r + dr, c + dc
+            nxt = (nr, nc)
+ 
+            if 0 <= nr < 5 and 0 <= nc < 5 and nxt not in visited and nxt not in trap_pos:
+                visited.add(nxt)
+                queue.append((nxt, path + [nxt]))
+ 
+    return None
 
+# Greeting
 def greetUser():
-    welcome= "Welcome to the Python Treasure Hunt" # telling the code that any time greetUser is mentioned the vairible welcome is actioned
+    welcome = "Welcome to the Python Treasure Hunt"
     return welcome
 
 print(greetUser())
 
-#Player Grid
+# Player Grid
 player_row = 4
 player_column = 0
 
 def display_grid():
-    rows= 5
-    coulums= 5
+    rows = 5
+    coulums = 5
     for i in range(rows):
         for j in range(coulums):
-            if i == player_row and j== player_column:
-                print("P", end=" ") #This is to print the P in the last row and first column as the starting point of the game.
+            if i == player_row and j == player_column:
+                print("P", end=" ")
             else:
-                print(".", end=" ") # this is to print the dots in a line and not in a new line
-        print() # this is to move to the next line after printing the dots in a line
+                print(".", end=" ")
+        print()
 
 display_grid()
 
-#Player Health
+# Player Health
 player_hp = 3
 print("Player Health: ", player_hp)
-while player_hp > 0 and  (player_row, player_column) == (trap_row, trap_column):
-    player_hp -= 1
-    print("Player Health: ", player_hp)
 
-#Player Movement
-print("You are at the starting point. Move up (w), down(s), left(a) or right(d) to find the hidden treasure.")
+# Player Movement
+print("You are at the starting point. Move up (w), down(s), left(a), right(d), hint (h) or quit (q).")
 while player_hp > 0 and (player_row, player_column) != (treasure_row, treasure_column):
-    player_movement = input("Enter your move: ")
+    player_movement = input("Enter your move: ").strip().lower()
+
+    if player_movement == "q":
+        print("Thanks for playing. Goodbye!")
+        break
+
     if player_movement == "w":
         if player_row == 0:
             print("Error: You can't move up.")
-        else:
-            player_row += -1
-            display_grid()
-            print("Player Health: ", player_hp)
+            continue
+        player_row -= 1
+
     elif player_movement == "s":
         if player_row == 4:
             print("Error: You can't move down.")
-        else:
-            player_row += 1
-            display_grid()
-            print("Player Health: ", player_hp)
+            continue
+        player_row += 1
+
     elif player_movement == "a":
         if player_column == 0:
             print("Error: You can't move left.")
-        else:
-            player_column += -1
-            display_grid()
-            print("Player Health: ", player_hp)
+            continue
+        player_column -= 1
+
     elif player_movement == "d":
         if player_column == 4:
             print("Error: You can't move right.")
-        else:
-            player_column += 1
-            display_grid()
-            print("Player Health: ", player_hp)
-        
+            continue
+        player_column += 1
+
     else:
-        print("Error: Invalid move. Please enter w, s, a, or d.")
+        print("Error: Invalid move. Please enter w, s, a, d, h, or q.")
+        continue
+
+    display_grid()
+    print("Player Health: ", player_hp)
+
+    if (player_row, player_column) == (trap_row, trap_column):
+        player_hp -= 1
+        print("You stepped on a trap!")
+        print("Player Health: ", player_hp)
+
 if (player_row, player_column) == (treasure_row, treasure_column):
     print("Congratulations! You found the treasure!")
 elif player_hp == 0:
