@@ -19,24 +19,24 @@ while (trap_row == 4 and trap_column == 0) or (trap_row == treasure_row and trap
 #Search System
 def bfs_next_step(start, target, trap_pos=None):
     if trap_pos is None:
-        trap_pos = set()
+        trap_pos = set() #Makes sure the trap potision is know so that the search system can avoid it.
  
-    queue = deque([(start, [])])
-    visited = {start}
+    queue = deque([(start, [])]) # Starts looking for the target
+    visited = {start} #It doesn't look at nodes that have been visited before.
     directions = [(-1, 0, "up"), (1, 0, "down"), (0, -1, "left"), (0, 1, "right")]
  
     while queue:
         current, path = queue.popleft()
 # that is a bfs search code
-        if current == target:
-            return path
+        if current == target: 
+            return path  # Returns the shortest path.
  
         r, c = current
         for dr, dc, _ in directions:
             nr, nc = r + dr, c + dc
             nxt = (nr, nc)
  
-            if 0 <= nr < 5 and 0 <= nc < 5 and nxt not in visited and nxt not in trap_pos:
+            if 0 <= nr < 5 and 0 <= nc < 5 and nxt not in visited and nxt not in trap_pos: #Keeps the search within the grid.
                 visited.add(nxt)
                 queue.append((nxt, path + [nxt]))
  
@@ -106,7 +106,8 @@ while player_hp > 0 and (player_row, player_column) != (treasure_row, treasure_c
     elif player_movement == "h":
         hint = bfs_next_step((player_row, player_column), (treasure_row, treasure_column), trap_pos={(trap_row, trap_column)})
         if hint:
-            next_step = hint[0]
+            next_step = hint[0] # Each queue item stores and moves.
+            #This truns it into direction:
             dr = next_step[0] - player_row
             dc = next_step[1] - player_column
             if dr == -1:
