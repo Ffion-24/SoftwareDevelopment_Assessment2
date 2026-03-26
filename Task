@@ -102,6 +102,23 @@ while player_hp > 0 and (player_row, player_column) != (treasure_row, treasure_c
             print("Error: You can't move right.")
             continue
         player_column += 1
+    
+    elif player_movement == "h":
+        hint = bfs_next_step((player_row, player_column), (treasure_row, treasure_column), trap_pos={(trap_row, trap_column)})
+        if hint:
+            next_step = hint[0]
+            dr = next_step[0] - player_row
+            dc = next_step[1] - player_column
+            if dr == -1:
+                print("Hint: Move up")
+            elif dr == 1:
+                print("Hint: Move down")
+            elif dc == -1:
+                print("Hint: Move left")
+            elif dc == 1:
+                print("Hint: Move right")
+        else:
+            print("No valid moves available to reach the treasure.")
 
     else:
         print("Error: Invalid move. Please enter w, s, a, d, h, or q.")
